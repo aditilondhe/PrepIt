@@ -50,27 +50,32 @@ export async function signIn(params: SignInParams) {
     if (!userRecord) {
       return {
         success: false,
-        message: 'User does not exist.Create an account instead'
-      }
+        message: 'User does not exist. Create an account instead.'
+      };
     }
 
-    await setSessionCookie(idToken)
+    await setSessionCookie(idToken);
+
+    return {
+      success: true,
+      message: 'Signed in successfully.'
+    };
   } catch (error) {
     console.log(error);
     return {
       success: false,
-      message: 'Failed to log into account'
-    }
-
+      message: 'Failed to log into account.'
+    };
   }
 }
 
+
 export async function setSessionCookie(idToken: string) {
-  const cookieStore = cookies();
-  const sessionCookie = auth.createSessionCookie(idToken, {
+  const cookieStore =  cookies();
+  const sessionCookie = await auth.createSessionCookie(idToken, {
     expiresIn: one_week * 1000
   })
-  cookieStore.set('session', sessionCookie, {
+  cookieStore.set("session", sessionCookie, {
     maxAge: one_week,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -78,5 +83,35 @@ export async function setSessionCookie(idToken: string) {
     sameSite: 'lax'
   })
 
+}
+
+export async function getCurrentUser():Promise<User | null>{
+  const cookieStore=cookies();
+  const sessionCookie=cookieStore.get('session')?.value;
+  if(!sessionCookie){
+    return null;
+  }
+  try {
+    const decodedClaims=await auth.verifySessionCookie(sessionCookie,true);
+    const userRecord=await db.collection('users').doc(decodedClaims.uid ).get();
+    if(!userRecord.exists){
+return null;
+    }
+
+    return{
+      ...userRecord.data(),
+      id:userRecord.id
+
+    } as User
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function isAuthenticated(){
+  const user=await getCurrentUser();
+
+  return !!user;
 }
 
