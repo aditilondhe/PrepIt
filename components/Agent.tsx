@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
-import { interviewer } from "@/constants";
+import { interviewer, generator } from "@/constants";
 //import { createFeedback } from "@/lib/actions/general.action";
 
 enum CallStatus {
@@ -120,15 +120,16 @@ const Agent = ({
     if (type === "generate") {
       await vapi.start(
         undefined,
-        undefined,
-        undefined,
-        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!,
         {
           variableValues: {
             username: userName,
             userid: userId,
           },
-        }
+          clientMessages: ["transcript"],
+          serverMessages: [],
+        },
+        undefined,
+        generator
       );
     } else {
       let formattedQuestions = "";
@@ -142,6 +143,8 @@ const Agent = ({
         variableValues: {
           questions: formattedQuestions,
         },
+        clientMessages: ["transcript"],
+        serverMessages: [],
       });
     }
   };
