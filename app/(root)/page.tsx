@@ -2,13 +2,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { dummyInterviews } from "@/constants";
 import InterviewCard from "@/components/InterviewCard";
 import {
   getInterviewByUserId,
   getLatestInterviews,
 } from "@/lib/actions/general.action";
-import { getCurrentUser } from "@/lib/actions/auth.action";
+import { getCurrentUser } from "@/lib/actions/auth.actions";
 
 const page = async () => {
   const user = await getCurrentUser();
@@ -51,7 +50,7 @@ const page = async () => {
               <InterviewCard {...interview} key={interview.id} />
             ))
           ) : (
-            <p>You Haven't taken any interviews yet</p>
+            <p>You Haven&apos;t taken any interviews yet</p>
           )}
         </div>
       </section>
@@ -63,7 +62,7 @@ const page = async () => {
               <InterviewCard {...interview} key={interview.id} />
             ))
           ) : (
-            <p>There are no new interviews avaliable</p>
+            <p>There are no new interviews available</p>
           )}
         </div>
       </section>
