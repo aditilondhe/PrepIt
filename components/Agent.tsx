@@ -114,32 +114,63 @@ const Agent = ({
     }
   }, [messages, callStatus, feedbackId, interviewId, router, type, userId]);
 
+  // const handleCall = async () => {
+  //   setCallStatus(CallStatus.CONNECTING);
+
+  //   if (type === "generate") {
+  //     await vapi.start(
+  //       undefined,
+  //       {
+  //         variableValues: {
+  //           username: userName,
+  //           userid: userId,
+  //         },
+  //         clientMessages: ["transcript"],
+  //         serverMessages: [],
+  //       },
+  //       undefined,
+  //       generator
+  //     );
+  //   } else {
+  //     let formattedQuestions = "";
+  //     if (questions) {
+  //       formattedQuestions = questions
+  //         .map((question) => `- ${question}`)
+  //         .join("\n");
+  //     }
+
+  //     await vapi.start(interviewer, {
+  //       variableValues: {
+  //         questions: formattedQuestions,
+  //       },
+  //       clientMessages: ["transcript"],
+  //       serverMessages: [],
+  //     });
+  //   }
+  // };
+
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
 
     if (type === "generate") {
-      await vapi.start(
-        undefined,
-        {
-          variableValues: {
-            username: userName,
-            userid: userId,
-          },
-          clientMessages: ["transcript"],
-          serverMessages: [],
+      await vapi.start({
+        assistant: undefined,
+        workflow: generator,
+        variableValues: {
+          username: userName,
+          userid: userId,
         },
-        undefined,
-        generator
-      );
+        clientMessages: ["transcript"],
+        serverMessages: [],
+      });
     } else {
       let formattedQuestions = "";
       if (questions) {
-        formattedQuestions = questions
-          .map((question) => `- ${question}`)
-          .join("\n");
+        formattedQuestions = questions.map((q) => `- ${q}`).join("\n");
       }
 
-      await vapi.start(interviewer, {
+      await vapi.start({
+        assistant: interviewer,
         variableValues: {
           questions: formattedQuestions,
         },
