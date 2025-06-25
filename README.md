@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🧠 **PrepIt – Talk to an AI Interviewer Like It's Real**  
+**PrepIt** is a next-generation, voice-powered mock interview platform offering real-time AI conversations and structured feedback. Built to simulate the pressure, pace, and polish of real interviews — all through your browser.
 
-## Getting Started
+---
 
-First, run the development server:
+##  **Features :**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### - **Conversational AI Interviewer**  
+Practice mock interviews by **speaking directly** to an AI interviewer using **Vapi voice SDK**. Simulates real-world pressure, timing, and dialogue flow.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### - **Smart Interview Setup via Natural Conversation**  
+Skip the forms — simply **talk to the AI** to describe your:
+- Desired **role**
+- **Experience level**
+- **Tech stack**, etc.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The system understands your speech and configures the interview accordingly.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### - **AI-Generated Questions with Context Awareness**  
+Tailored technical and behavioral questions are generated using **Google's Gemini**, based on your spoken inputs.
 
-## Learn More
+### - **Real-Time Mock Interview Flow**  
+Once questions are generated, users enter a **live voice-based interview session**. Speak your answers out loud as if in a real interview scenario.
 
-To learn more about Next.js, take a look at the following resources:
+### - **LLM-Based Feedback with Scorecard**  
+Post-interview, users get structured feedback scored across:
+- Communication Skills  
+- Technical Knowledge  
+- Problem-Solving  
+- Cultural & Role Fit  
+- Confidence & Clarity
+  
+Users get to know their strengths and areas of improvement as well.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### - **Secure User Auth with Firebase**  
+Users can log in and track their interviews and progress.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### - **Modern UI with Dark Mode**  
+Clean, responsive design using Tailwind CSS with dark mode and gradients.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## **Tech Stack**
+- **Next.js** 
+- **Tailwind CSS** 
+- **Vapi AI SDK** 
+- **Google Gemini** 
+- **Zod** 
+- **Firebase Auth**
+- **Firestore**
