@@ -50,7 +50,7 @@ const page = async () => {
               <InterviewCard {...interview} key={interview.id} />
             ))
           ) : (
-            <p>You Haven&apos;t taken any interviews yet</p>
+            <p>You haven&apos;t taken any interviews yet</p>
           )}
         </div>
       </section>

@@ -149,42 +149,6 @@ const Agent = ({
     }
   };
 
-  // const handleCall = async () => {
-  //   setCallStatus(CallStatus.CONNECTING);
-
-  //   try {
-  //     if (type === "generate") {
-  //       // ✅ Use workflow ID or inline workflow object depending on Vapi config
-  //       await vapi.start({
-  //         workflow: "prepit-interviews", // ✅ Use ID (not the full object)
-  //         variableValues: {
-  //           username: userName,
-  //           userid: userId,
-  //         },
-  //         clientMessages: ["transcript"],
-  //         serverMessages: [],
-  //       });
-  //     } else {
-  //       let formattedQuestions = "";
-  //       if (questions && questions.length > 0) {
-  //         formattedQuestions = questions.map((q) => `- ${q}`).join("\n");
-  //       }
-
-  //       await vapi.start({
-  //         assistant: interviewer, // ✅ Pass full assistant object as defined
-  //         variableValues: {
-  //           questions: formattedQuestions,
-  //         },
-  //         clientMessages: ["transcript"],
-  //         serverMessages: [],
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Call failed:", error);
-  //     setCallStatus(CallStatus.FINISHED);
-  //   }
-  // };
-
   const handleDisconnect = () => {
     setCallStatus(CallStatus.FINISHED);
     vapi.stop();

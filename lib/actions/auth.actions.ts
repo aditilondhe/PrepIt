@@ -71,7 +71,7 @@ export async function signIn(params: SignInParams) {
 
 
 export async function setSessionCookie(idToken: string) {
-  const cookieStore =  cookies();
+  const cookieStore =  await cookies();
   const sessionCookie = await auth.createSessionCookie(idToken, {
     expiresIn: one_week * 1000
   })
@@ -86,7 +86,7 @@ export async function setSessionCookie(idToken: string) {
 }
 
 export async function getCurrentUser():Promise<User | null>{
-  const cookieStore=cookies();
+  const cookieStore=await cookies();
   const sessionCookie=cookieStore.get('session')?.value;
   if(!sessionCookie){
     return null;
@@ -114,4 +114,32 @@ export async function isAuthenticated(){
 
   return !!user;
 }
+export async function signOut() {
+    const cookieStore = await cookies();
 
+    const sessionCookie = cookieStore.get("session")?.value;
+
+    // Optional: revoke session cookie in Firebase
+    if (sessionCookie) {
+        try {
+            const decodedClaims = await auth.verifySessionCookie(sessionCookie);
+            await auth.revokeRefreshTokens(decodedClaims.sub); // or decodedClaims.uid
+        } catch (error) {
+            console.error("Failed to revoke session:", error);
+        }
+    }
+
+    // Clear session cookie
+    cookieStore.set("session", "", {
+        maxAge: 0,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        sameSite: "lax",
+    });
+
+    return {
+        success: true,
+        message: "Signed out successfully.",
+    };
+}
